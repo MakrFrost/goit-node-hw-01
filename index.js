@@ -26,8 +26,11 @@ async function invokeAction({ action, id, name, email, phone }) {
       break;
 
     case "get":
-      console.log(id);
-      getContactById(id);
+      const contact = await getContactById(id);
+      if (!contact) {
+        throw new Error(`${id} this contact not found`);
+      }
+      console.log("contact:", contact);
       break;
 
     case "add":
