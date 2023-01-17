@@ -3,24 +3,25 @@ const path = require("path");
 const contactsPath = path.resolve("./db/contacts.json");
 const { v4: uuidv4 } = require("uuid");
 
-const listContacts = async () => {
+async function listContacts() {
   try {
     const contacts = await fs.readFile(contactsPath, "utf8");
     return JSON.parse(contacts);
   } catch (err) {
     console.log(err.message);
   }
-};
-const getContactById = async (id) => {
+}
+async function getContactById(id) {
   try {
     const data = await fs.readFile(contactsPath, "utf8");
     const parseData = JSON.parse(data);
-    const find = parseData.find((item) => item.id === id.toString());
+    const findId = parseData.find((item) => item.id === id.toString());
+    return findId;
   } catch (err) {
     console.error(err);
   }
-};
-const removeContacts = async (id) => {
+}
+async function removeContacts(id) {
   try {
     const contacts = await fs.readFile(contactsPath, "utf-8");
 
@@ -33,8 +34,8 @@ const removeContacts = async (id) => {
   } catch (err) {
     console.log(err.message);
   }
-};
-const addContact = async (id, name, email, phone) => {
+}
+async function addContact(id, name, email, phone) {
   try {
     const contacts = await listContacts();
     const newContact = {
@@ -49,7 +50,7 @@ const addContact = async (id, name, email, phone) => {
   } catch (err) {
     console.log(err.message);
   }
-};
+}
 
 module.exports = {
   listContacts,
